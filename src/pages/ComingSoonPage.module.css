@@ -1,0 +1,42 @@
+.page {
+  min-height: 100vh;
+  padding: 2rem 1.25rem;
+  background: linear-gradient(160deg, #f7f1e6 0%, #e8dcc8 100%);
+}
+
+.content {
+  max-width: 28rem;
+  margin: 0 auto;
+}
+
+.back,
+.home {
+  display: inline-block;
+  font-family: 'Source Sans 3', system-ui, sans-serif;
+  font-weight: 600;
+  color: #1a5f7a;
+  text-decoration: none;
+}
+
+.back {
+  margin-bottom: 1.5rem;
+}
+
+.back:hover,
+.home:hover {
+  text-decoration: underline;
+}
+
+.title {
+  margin: 0 0 0.5rem;
+  font-family: 'Fraunces', Georgia, serif;
+  font-size: clamp(1.75rem, 4vw, 2.25rem);
+  color: #1c1917;
+}
+
+.subtitle {
+  margin: 0 0 1.5rem;
+  font-family: 'Source Sans 3', system-ui, sans-serif;
+  color: #57534e;
+  line-height: 1.5;
+}
