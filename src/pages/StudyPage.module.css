@@ -1,0 +1,119 @@
+.page {
+  min-height: 100vh;
+  padding: 2rem 1.25rem;
+  background:
+    radial-gradient(ellipse 70% 50% at 10% 20%, rgba(232, 168, 56, 0.18), transparent 50%),
+    linear-gradient(160deg, #f7f1e6 0%, #e8dcc8 100%);
+}
+
+.content {
+  max-width: 28rem;
+  margin: 0 auto;
+}
+
+.back {
+  display: inline-block;
+  margin-bottom: 1.5rem;
+  font-family: 'Source Sans 3', system-ui, sans-serif;
+  font-weight: 600;
+  color: #1a5f7a;
+  text-decoration: none;
+}
+
+.back:hover {
+  text-decoration: underline;
+}
+
+.title {
+  margin: 0 0 0.5rem;
+  font-family: 'Fraunces', Georgia, serif;
+  font-size: clamp(1.75rem, 4vw, 2.25rem);
+  color: #1c1917;
+}
+
+.progress {
+  margin: 0 0 1.5rem;
+  font-family: 'Source Sans 3', system-ui, sans-serif;
+  font-size: 0.95rem;
+  color: #57534e;
+}
+
+.subtitle {
+  margin: 0 0 1.75rem;
+  font-family: 'Source Sans 3', system-ui, sans-serif;
+  color: #57534e;
+}
+
+.actions {
+  display: flex;
+  gap: 0.75rem;
+  margin-top: 1.5rem;
+  justify-content: center;
+}
+
+.right,
+.wrong,
+.primary,
+.secondary {
+  font-family: 'Source Sans 3', system-ui, sans-serif;
+  font-size: 1.05rem;
+  font-weight: 600;
+  border-radius: 0.5rem;
+  padding: 0.85rem 1.1rem;
+  cursor: pointer;
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+
+.right,
+.wrong {
+  flex: 1;
+  border: 2px solid transparent;
+}
+
+.right {
+  background: #166534;
+  color: #f0fdf4;
+  box-shadow: 0 2px 0 #14532d;
+}
+
+.wrong {
+  background: #991b1b;
+  color: #fef2f2;
+  box-shadow: 0 2px 0 #7f1d1d;
+}
+
+.right:hover,
+.wrong:hover,
+.primary:hover {
+  transform: translateY(-1px);
+}
+
+.done {
+  margin-top: 1rem;
+}
+
+.doneActions {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.primary {
+  border: none;
+  background: #1a5f7a;
+  color: #f7f1e6;
+  box-shadow: 0 2px 0 #0f3d4f;
+}
+
+.secondary {
+  display: block;
+  text-align: center;
+  text-decoration: none;
+  background: transparent;
+  color: #1a5f7a;
+  border: 2px solid #1a5f7a;
+}
+
+.secondary:hover {
+  background: rgba(26, 95, 122, 0.08);
+}

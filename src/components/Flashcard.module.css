@@ -1,0 +1,98 @@
+.card {
+  display: block;
+  width: 100%;
+  max-width: 22rem;
+  margin: 0 auto;
+  padding: 0;
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  perspective: 1000px;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.inner {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 4 / 3;
+  transition: transform 0.55s ease;
+  transform-style: preserve-3d;
+}
+
+.card.flipped .inner {
+  transform: rotateY(180deg);
+}
+
+.face {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 1.5rem;
+  border-radius: 0.75rem;
+  background: #fff;
+  border: 1px solid #d6d3d1;
+  box-shadow: 0 4px 0 rgba(28, 25, 23, 0.08);
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+}
+
+.back {
+  transform: rotateY(180deg);
+  background: #1a5f7a;
+  border-color: #0f3d4f;
+  color: #f7f1e6;
+}
+
+.label {
+  font-family: 'Source Sans 3', system-ui, sans-serif;
+  font-size: 0.8rem;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  opacity: 0.7;
+}
+
+.back .label {
+  color: rgba(247, 241, 230, 0.85);
+}
+
+.word {
+  font-family: 'Fraunces', Georgia, serif;
+  font-size: clamp(1.75rem, 5vw, 2.25rem);
+  font-weight: 700;
+  line-height: 1.2;
+  color: #1c1917;
+  text-align: center;
+}
+
+.back .word {
+  color: #f7f1e6;
+}
+
+.hint {
+  margin-top: 0.75rem;
+  font-family: 'Source Sans 3', system-ui, sans-serif;
+  font-size: 0.85rem;
+  color: #78716c;
+}
+
+.back .hint {
+  color: rgba(247, 241, 230, 0.7);
+}
+
+.card:hover .face {
+  border-color: #1a5f7a;
+}
+
+.card:focus-visible {
+  outline: none;
+}
+
+.card:focus-visible .face {
+  outline: 2px solid #e8a838;
+  outline-offset: 3px;
+}

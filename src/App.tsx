@@ -4,6 +4,7 @@ import CategorySelectionPage from './pages/CategorySelectionPage'
 import ComingSoonPage from './pages/ComingSoonPage'
 import HomePage from './pages/HomePage'
 import StatsPage from './pages/StatsPage'
+import StudyPage from './pages/StudyPage'
 
 export default function App() {
   return (
@@ -14,7 +15,7 @@ export default function App() {
           <Route path="/study" element={<CategorySelectionPage />} />
           <Route path="/quiz" element={<CategorySelectionPage />} />
           <Route path="/stats" element={<StatsPage />} />
-          <Route path="/study/:category" element={<ComingSoonPage mode="study" />} />
+          <Route path="/study/:category" element={<StudyPage />} />
           <Route path="/quiz/:category" element={<ComingSoonPage mode="quiz" />} />
           <Route path="*" element={<Navigate to="/" replace />} />
         </Route>
