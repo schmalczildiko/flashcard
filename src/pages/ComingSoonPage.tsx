@@ -1,24 +1,21 @@
 import { Link, useParams } from 'react-router-dom'
-import { CATEGORY_LABELS } from '../data/types'
-import type { Category } from '../data/types'
+import { CATEGORY_LABELS, isCategory } from '../data/types'
+import type { AppMode } from '../data/types'
 import styles from './ComingSoonPage.module.css'
 
 interface ComingSoonPageProps {
-  mode: 'study' | 'quiz'
+  mode: AppMode
 }
 
 export default function ComingSoonPage({ mode }: ComingSoonPageProps) {
   const { category } = useParams<{ category: string }>()
-  const label =
-    category && category in CATEGORY_LABELS
-      ? CATEGORY_LABELS[category as Category]
-      : 'this category'
+  const label = isCategory(category) ? CATEGORY_LABELS[category] : 'this category'
   const modeLabel = mode === 'study' ? 'Study' : 'Quiz'
 
   return (
     <main className={styles.page}>
       <div className={styles.content}>
-        <Link className={styles.back} to={mode === 'study' ? '/study' : '/quiz'}>
+        <Link className={styles.back} to={`/${mode}`}>
           ← Categories
         </Link>
         <h1 className={styles.title}>

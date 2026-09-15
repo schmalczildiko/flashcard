@@ -8,12 +8,17 @@ interface FlashcardProps {
 }
 
 export default function Flashcard({ spanish, english, flipped, onFlip }: FlashcardProps) {
+  // Accessible name is also what Playwright uses to find the card.
+  const ariaLabel = flipped
+    ? `English: ${english}. Click to flip back.`
+    : `Spanish: ${spanish}. Click to flip.`
+
   return (
     <button
       type="button"
       className={`${styles.card} ${flipped ? styles.flipped : ''}`}
       onClick={onFlip}
-      aria-label={flipped ? `English: ${english}. Click to flip back.` : `Spanish: ${spanish}. Click to flip.`}
+      aria-label={ariaLabel}
     >
       <div className={styles.inner}>
         <div className={styles.face}>

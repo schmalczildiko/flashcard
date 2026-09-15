@@ -114,6 +114,7 @@ export const flashcards: Flashcard[] = [
   },
 ]
 
+/** Returns the deck for a category in the same order as `flashcards`. */
 export function getCardsByCategory(category: Flashcard['category']): Flashcard[] {
   return flashcards.filter((card) => card.category === category)
 }

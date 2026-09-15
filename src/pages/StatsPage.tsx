@@ -1,6 +1,7 @@
 import { Link } from 'react-router-dom'
 import styles from './StatsPage.module.css'
 
+/** Placeholder until session stats are persisted in a later phase. */
 export default function StatsPage() {
   return (
     <main className={styles.page}>

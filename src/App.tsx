@@ -7,13 +7,14 @@ import StatsPage from './pages/StatsPage'
 import StudyPage from './pages/StudyPage'
 
 export default function App() {
+  // Study and quiz share CategorySelectionPage; only study/:category is interactive.
   return (
     <BrowserRouter>
       <Routes>
         <Route element={<AppShell />}>
           <Route path="/" element={<HomePage />} />
-          <Route path="/study" element={<CategorySelectionPage />} />
-          <Route path="/quiz" element={<CategorySelectionPage />} />
+          <Route path="/study" element={<CategorySelectionPage mode="study" />} />
+          <Route path="/quiz" element={<CategorySelectionPage mode="quiz" />} />
           <Route path="/stats" element={<StatsPage />} />
           <Route path="/study/:category" element={<StudyPage />} />
           <Route path="/quiz/:category" element={<ComingSoonPage mode="quiz" />} />

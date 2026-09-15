@@ -1,0 +1,54 @@
+---
+description: Playwright E2E tesztelési konvenciók a Spanish Flashcards projekthez
+alwaysApply: true
+---
+
+# Testing (Playwright E2E)
+
+Tesztek helye: `e2e/`. Config: `playwright.config.ts`. Futtatás (Windows): `npm.cmd run test:e2e`. UI: `npm.cmd run test:e2e:ui`. HTML riport: `npm.cmd run test:e2e -- --reporter=html`, majd `npx.cmd playwright show-report`. Részletek: `docs/e2e-testing-principles.md`.
+
+Új UI viselkedéshez írj vagy frissíts E2E tesztet. Ne commitold a `playwright-report/` és `test-results/` mappákat.
+
+## Mit tesztelj
+
+- User journey a böngészőben (navigál, kattint, olvassa a szöveget) — ne React state-et vagy CSS osztályt.
+- Egy teszt ≈ egy viselkedés. Sok rövid teszt + kevés hosszú journey.
+- Determinisztikus mag (fix kategória, fix Right/Wrong). Random csak kiegészítés; annotáld: `test.info().annotations`.
+- Tesztek függetlenek: `page.goto(...)` a teszt elején vagy `beforeEach`-ben. Ne támaszkodj az előző teszt állapotára.
+- Edge case: pl. invalid URL (`/study/not-a-category`) → kategóriaválasztó.
+- Acceptance criteria (`TODO.md` / `specification.md`) a checklist.
+- Tiszta logika (szűrés, pontszám) ne E2E-be menjen — az unit/komponens teszt.
+
+## Selektorok és várakozás
+
+Használj `getByRole`, `getByLabel`, `getByText`. Kerüld a CSS/XPath selektorokat. Kerüld a `waitForTimeout`-ot — a Playwright auto-wait elég.
+
+```ts
+// ❌ BAD
+await page.locator('.card_abc123').click()
+await page.waitForTimeout(2000)
+
+// ✅ GOOD
+await page.getByRole('button', { name: /Spanish: el gato/i }).click()
+await expect(page.getByRole('button', { name: '✅ Right' })).toBeVisible()
+```
+
+Flashcard-adat: importáld `src/data/flashcards.ts` / `src/data/types.ts` — ne másold be a spanyol/angol stringeket.
+
+## Szerkezet és nevek
+
+Arrange → Act → Assert. Olvasható név, ami az elvárást mondja:
+
+```ts
+// ❌ BAD
+test('test1', async ({ page }) => { /* ... */ })
+
+// ✅ GOOD
+test('Right advances to the next card and resets to Spanish', async ({ page }) => {
+  await page.goto('/study/animals')
+  await page.getByRole('button', { name: /Spanish: el gato/i }).click()
+  await page.getByRole('button', { name: '✅ Right' }).click()
+  await expect(page.getByText('Card 2 of 4')).toBeVisible()
+  await expect(page.getByRole('button', { name: /Spanish: el perro/i })).toBeVisible()
+})
+```

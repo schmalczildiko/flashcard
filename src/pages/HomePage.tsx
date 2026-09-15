@@ -1,6 +1,7 @@
 import { Link } from 'react-router-dom'
 import styles from './HomePage.module.css'
 
+/** Landing page: brand plus the three main mode links. */
 export default function HomePage() {
   return (
     <main className={styles.page}>

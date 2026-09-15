@@ -125,6 +125,24 @@ test.describe('Study mode flashcards', () => {
     await expect(page.getByRole('heading', { name: 'Choose a study category' })).toBeVisible()
   })
 
+  test('switching category starts a new deck from card 1', async ({ page }) => {
+    const foodCards = getCardsByCategory('food')
+    const firstFood = foodCards[0]
+
+    await page.getByRole('button', { name: /Spanish: el gato/i }).click()
+    await page.getByRole('button', { name: '✅ Right' }).click()
+    await expect(page.getByText('Card 2 of 4')).toBeVisible()
+
+    await page.getByRole('link', { name: '← Categories' }).click()
+    await page.getByRole('link', { name: 'Food' }).click()
+
+    await expect(page).toHaveURL('/study/food')
+    await expect(page.getByText(`Card 1 of ${foodCards.length}`)).toBeVisible()
+    await expect(
+      page.getByRole('button', { name: `Spanish: ${firstFood.spanish}. Click to flip.` }),
+    ).toBeVisible()
+  })
+
   test('Animals: random Right or Wrong advances to the next card', async ({ page }) => {
     const answer = pickRandom(['✅ Right', '❌ Wrong'] as const)
     test.info().annotations.push({ type: 'answer', description: answer })

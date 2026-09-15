@@ -2,22 +2,31 @@ import { useState } from 'react'
 import { Link, Navigate, useParams } from 'react-router-dom'
 import Flashcard from '../components/Flashcard'
 import { getCardsByCategory } from '../data/flashcards'
-import { CATEGORIES, CATEGORY_LABELS } from '../data/types'
+import { CATEGORY_LABELS, isCategory } from '../data/types'
 import type { Category } from '../data/types'
 import styles from './StudyPage.module.css'
 
-function isCategory(value: string | undefined): value is Category {
-  return !!value && (CATEGORIES as string[]).includes(value)
-}
-
+/**
+ * Route wrapper: invalid `:category` goes back to the picker.
+ * `key` remounts the session so progress does not leak between categories.
+ */
 export default function StudyPage() {
   const { category } = useParams<{ category: string }>()
-  const [index, setIndex] = useState(0)
-  const [flipped, setFlipped] = useState(false)
 
   if (!isCategory(category)) {
     return <Navigate to="/study" replace />
   }
+
+  return <StudySession key={category} category={category} />
+}
+
+interface StudySessionProps {
+  category: Category
+}
+
+function StudySession({ category }: StudySessionProps) {
+  const [index, setIndex] = useState(0)
+  const [flipped, setFlipped] = useState(false)
 
   const cards = getCardsByCategory(category)
   const total = cards.length
@@ -28,17 +37,10 @@ export default function StudyPage() {
     setFlipped((prev) => !prev)
   }
 
-  function goToNext() {
+  // Right and Wrong both advance for now; scoring lands in a later phase.
+  function handleAnswer() {
     setFlipped(false)
     setIndex((prev) => prev + 1)
-  }
-
-  function handleRight() {
-    goToNext()
-  }
-
-  function handleWrong() {
-    goToNext()
   }
 
   function handleRestart() {
@@ -79,10 +81,10 @@ export default function StudyPage() {
             />
             {flipped && (
               <div className={styles.actions} role="group" aria-label="Mark your answer">
-                <button type="button" className={styles.right} onClick={handleRight}>
+                <button type="button" className={styles.right} onClick={handleAnswer}>
                   ✅ Right
                 </button>
-                <button type="button" className={styles.wrong} onClick={handleWrong}>
+                <button type="button" className={styles.wrong} onClick={handleAnswer}>
                   ❌ Wrong
                 </button>
               </div>
