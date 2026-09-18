@@ -11,12 +11,18 @@ node_modules
 dist
 dist-ssr
 *.local
+.env
+.env.*
+!.env.example
 
 # Playwright
 /test-results/
 /playwright-report/
 /blob-report/
 /playwright/.cache/
+
+# Cursor MCP (tokens / secrets — keep .cursor/rules in git)
+.cursor/mcp.json
 
 # Editor
 .vscode/*
